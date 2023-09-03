@@ -5,6 +5,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #124481;
+}
+@media (max-width: 1200px) {
+  html {
+    font-size: 16px; 
+  }
+}
+
+@media (max-width: 1000px) {
+  html {
+    font-size: 14px; 
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    font-size: 12px; 
+  }
+}
+
+@media (min-width: 1201px) {
+  html {
+    font-size: 18px; 
+  }
 }
 
 code {
