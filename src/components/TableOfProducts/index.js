@@ -83,10 +83,10 @@ const TableOfProducts = ({ setLoading }) => {
       {
         products.map(el => (<tr key={el.id}>
           <Td><Link to={`/product/${el.id}`} >{el.id} </Link></Td>
-          <Td><Link to={`/product/${el.id}`} >{el.title} </Link></Td>
-          <Td><Link to={`/product/${el.id}`} >{el.description} </Link></Td>
-          <Td><Link to={`/product/${el.id}`} >{el.price} </Link></Td>
-          <Td><Link to={`/product/${el.id}`} ><Image src={el.images[0]} alt={el.title} /> </Link></Td>
+          <Td><Link to={`/product/${el.id}`} >{el?.title} </Link></Td>
+          <Td><Link to={`/product/${el.id}`} >{el?.description} </Link></Td>
+          <Td><Link to={`/product/${el.id}`} >{el?.price} </Link></Td>
+          <Td><Link to={`/product/${el.id}`} >{el.images && <Image src={el.images[0]} alt={el.title} />} </Link></Td>
           <Td><Link to={`/product/${el.id}`} >{el.rating} </Link></Td>
           <Td><Link to={`/product/${el.id}`} >{el.stock} </Link></Td>
           <Td><Link to={`/product/${el.id}`} >{el.category} </Link></Td>

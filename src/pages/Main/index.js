@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useDispatch } from "react-redux";
 import { setProducts } from "../../redux/products";
 import TableOfProducts from "../../components/TableOfProducts";
-import { Header, TextFieldStyled } from "./styles";
+import { Header, TextFieldStyled, BarWrapper, StyledPagination } from "./styles";
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,6 +16,8 @@ const Main = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
 
   const debounce = (fn, interval) => {
@@ -43,8 +45,9 @@ const Main = () => {
 
 
   useEffect(() => {
-    axios.get(`https://dummyjson.com/products${search ? `/search?q=${search}` : ""}`).then((res) => {
-      dispatch(setProducts(res.data.products))
+    axios.get(`https://dummyjson.com/products${search ? `/search?q=${search}` : `?limit=10&skip=${10 * (page - 1)}`}`).then((res) => {
+      dispatch(setProducts(res.data.products));
+      setTotal(res.data.total);
     }).catch(() => {
       toast.error('Something went wrong :( Please, try again!', {
         position: "top-right",
@@ -59,7 +62,7 @@ const Main = () => {
     }).finally(() => {
       setLoading(false);
     })
-  }, [search]);
+  }, [search, page]);
 
   return <>
     <Preloader display={loading} />
@@ -95,8 +98,14 @@ const Main = () => {
         ),
       }}
     />
+    <BarWrapper>
+
+      <StyledPagination count={total / 10} onChange={(e, value) => { setLoading(true); setPage(value) }} />
+
+    </BarWrapper>
+
     <TableOfProducts setLoading={setLoading} />
-    <NewProduct setLoading={setLoading}/>
+    <NewProduct setLoading={setLoading} />
   </>
 }
 
